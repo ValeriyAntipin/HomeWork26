@@ -1,0 +1,3 @@
+/home/valerii/ModuleN/build/CMakeFiles/MyThread.dir
+/home/valerii/ModuleN/build/CMakeFiles/edit_cache.dir
+/home/valerii/ModuleN/build/CMakeFiles/rebuild_cache.dir
