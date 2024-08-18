@@ -6,6 +6,7 @@
 #include <vector>
 #include <random>
 #include <future>
+#include <chrono>
 
 int getSum(std::vector<int> vec, int x, int y){
     int sum = 0;
@@ -17,10 +18,10 @@ int getSum(std::vector<int> vec, int x, int y){
 
 int main(){
 
-    const int size = 20;
+    const int size = 200;
 
-    int lower = 1;
-    int upper = 100;
+    int lower = 100;
+    int upper = 1000000;
 
     std::vector<int> random_num(size); 
 
@@ -31,15 +32,27 @@ int main(){
     for(int& number : random_num){
         number = distrib(gen);
     }
+
+    auto start = std::chrono::high_resolution_clock::now();
+
     int result = 0;
-    std::future<int> future1 = std::async(getSum, random_num, 0, 5);
+    //int altresult = getSum(random_num, 0, 200);
+    
+   
+    std::future<int> future1 = std::async(getSum, random_num, 0, 50);
     result += future1.get();
-    std::future<int> future2 = std::async(getSum, random_num, 6, 10);
+    std::future<int> future2 = std::async(getSum, random_num, 51, 100);
     result += future2.get();
-    std::future<int> future3 = std::async(getSum, random_num, 11, 15);
+    std::future<int> future3 = std::async(getSum, random_num, 101, 150);
     result += future3.get();
-    std::future<int> future4 = std::async(getSum, random_num, 16, 20);
+    std::future<int> future4 = std::async(getSum, random_num, 151, 200);
     result += future4.get();
+    
+    auto end = std::chrono::high_resolution_clock::now();
+    std::chrono::duration<double> duration = end - start;
+
+    //std::cout << altresult << std::endl;
     std::cout << result << std::endl;
+    std::cout << "Time: " << duration.count() << std::endl;
     return 0;
 }
